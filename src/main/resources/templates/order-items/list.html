@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Список Позиций Заказа</title>
+</head>
+<body>
+<h1>Список Позиций Заказа</h1>
+
+<div th:if="${orderItems.isEmpty()}">
+  <p>Нет позиций заказа для отображения.</p>
+</div>
+<div th:unless="${orderItems.isEmpty()}">
+  <table border="1">
+    <thead>
+    <tr>
+      <th>ID позиции</th>
+      <th>Заказ</th>
+      <th>Продукт</th>
+      <th>Количество</th>
+      <th>Цена за единицу</th>
+      <th>Сумма</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${orderItems}">
+      <td th:text="${item.orderItemId}"></td>
+      <td th:text="${item.order.orderId}"></td>
+      <td th:text="${item.product.name}"></td>
+      <td th:text="${item.quantity}"></td>
+      <td th:text="${item.unitPrice}"></td>
+      <td th:text="${item.quantity * item.unitPrice}"></td>
+
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<br/>
+
+<a th:if="${not orderItems.isEmpty() and orderItems.get(0) != null}" th:href="@{/orders/{id}(id=${orderItems.get(0).order.orderId})}">
+  Назад к деталям заказа
+</a>
+
+</body>
+
+<a href="/">Back to Home</a>
+</html>

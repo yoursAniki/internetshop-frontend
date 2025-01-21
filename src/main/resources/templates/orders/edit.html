@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Edit Order</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+  <h1 class="text-center mb-4">Edit Order</h1>
+  <form th:action="@{/orders/edit/{id}(id=${order.orderId})}" th:object="${order}" method="post">
+    <div class="mb-3">
+      <label for="user" class="form-label">User:</label>
+      <select id="user" th:field="*{user}" class="form-select">
+        <option th:each="user : ${users}" th:value="${user.userId}" th:text="${user.username}"></option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="orderDate" class="form-label">Order Date:</label>
+      <input type="datetime-local" id="orderDate" th:field="*{orderDate}" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label for="totalAmount" class="form-label">Total Amount:</label>
+      <input type="number" step="0.01" id="totalAmount" th:field="*{totalAmount}" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label for="status" class="form-label">Status:</label>
+      <input type="text" id="status" th:field="*{status}" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+  </form>
+  <a href="/orders" class="btn btn-secondary mt-3">Back to Orders</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+</html>

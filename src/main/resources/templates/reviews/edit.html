@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Редактировать Отзыв</title>
+</head>
+<body>
+<h1>Редактировать Отзыв</h1>
+
+<form th:action="@{/reviews/update}" th:object="${review}" method="post">
+  <input type="hidden" th:field="*{reviewId}" />
+
+  <div>
+    <label for="user">Пользователь:</label>
+    <select id="user" th:field="*{user}">
+      <option th:each="user : ${users}" th:value="${user.userId}" th:text="${user.username}"></option>
+    </select>
+    <p th:if="${#fields.hasErrors('user')}" th:errors="*{user}" class="error"></p>
+  </div>
+
+  <div>
+    <label for="product">Продукт:</label>
+    <select id="product" th:field="*{product}">
+      <option th:each="product : ${products}" th:value="${product.productId}" th:text="${product.name}"></option>
+    </select>
+    <p th:if="${#fields.hasErrors('product')}" th:errors="*{product}" class="error"></p>
+  </div>
+
+  <div>
+    <label for="rating">Рейтинг (1-5):</label>
+    <input type="number" th:field="*{rating}" id="rating" min="1" max="5" required/>
+    <p th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}" class="error"></p>
+  </div>
+
+  <div>
+    <label for="comment">Комментарий:</label>
+    <textarea th:field="*{comment}" id="comment"></textarea>
+    <p th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}" class="error"></p>
+  </div>
+
+  <button type="submit">Сохранить</button>
+</form>
+
+<a th:href="@{/reviews}">Назад к списку отзывов</a>
+</body>
+</html>

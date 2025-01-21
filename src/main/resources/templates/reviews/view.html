@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Детали Отзыва</title>
+</head>
+<body>
+<h1>Детали Отзыва</h1>
+
+<div>
+  <strong>ID:</strong> <span th:text="${review.reviewId}"></span>
+</div>
+<div>
+  <strong>Пользователь:</strong> <span th:text="${review.user.username}"></span>
+</div>
+<div>
+  <strong>Продукт:</strong> <span th:text="${review.product.name}"></span>
+</div>
+<div>
+  <strong>Рейтинг:</strong> <span th:text="${review.rating}"></span>
+</div>
+<div>
+  <strong>Комментарий:</strong> <span th:text="${review.comment}"></span>
+</div>
+<div>
+  <strong>Дата создания:</strong> <span th:text="${#temporals.format(review.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
+</div>
+
+<br/>
+<a th:href="@{/reviews}">Назад к списку отзывов</a>
+</body>
+</html>

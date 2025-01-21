@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Детали Заказа</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center mb-4">Детали Заказа</h1>
+
+    <div th:if="${order}">
+        <p><strong>ID Заказа:</strong> <span th:text="${order.orderId}"></span></p>
+        <p><strong>Пользователь:</strong> <span th:text="${order.user?.username}"></span></p>
+        <p><strong>Дата Заказа:</strong> <span th:text="${#temporals.format(order.orderDate, 'yyyy-MM-dd HH:mm')}"></span></p>
+        <p><strong>Общая Сумма:</strong> <span th:text="${order.totalAmount}"></span></p>
+        <p><strong>Статус:</strong> <span th:text="${order.status}"></span></p>
+
+        <hr class="my-4"/>
+
+        <!-- Ссылка на просмотр позиций заказа -->
+        <a th:href="@{/orders/{orderId}/items(orderId=${order.orderId})}" class="btn btn-outline-primary mb-3">Просмотреть позиции заказа</a>
+
+        <br/>
+        <a th:href="@{/orders/edit/{id}(id=${order.orderId})}" class="btn btn-warning btn-sm me-2">Редактировать заказ</a>
+        <a th:href="@{/orders/delete/{id}(id=${order.orderId})}" class="btn btn-danger btn-sm" onclick="return confirm('Вы уверены, что хотите удалить этот заказ?')">Удалить заказ</a>
+    </div>
+
+    <div th:unless="${order}" class="alert alert-warning" role="alert">
+        Заказ не найден.
+    </div>
+
+    <br/>
+    <a th:href="@{/orders}" class="btn btn-secondary mt-3">Назад к списку заказов</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+</html>
